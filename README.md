@@ -208,6 +208,8 @@ Wenn euch das Tutorial gefallen hat und alles funktioniert, wie es soll, freue i
 
 [<img src=https://raw.githubusercontent.com/Surenic/Hybrid-mode-for-LND-CLN-Raspiblitz-connected-to-an-Oracle-Cloud-Free-Tier-VPN/main/qr.png width="200" height="200">](https://coresln.duckdns.org:5001/lnurlp/1)
 
-Folgt mir auf Twitter [<img src=https://upload.wikimedia.org/wikipedia/commons/4/4f/Twitter-logo.svg width="50" height="50">](https://twitter.com/surenic)
+Folgt mir auf Twitter!
+
+[<img src=https://upload.wikimedia.org/wikipedia/commons/4/4f/Twitter-logo.svg width="50" height="50">](https://twitter.com/surenic)
 
 Ansonsten freue ich mich auf Verbesserungen, Anregungen und ähnliches
