@@ -38,7 +38,9 @@ Diese Anleitung soll als Hilfestellung dienen, eine bestehende Raspiblitz Full N
 
 Nehmt euren SSH-Client zur Hand und verbindet euch mit eurem Server mittels des zuvor erstellten private keys. Im Falle des Linux-Terminals sieht das so aus
 
-`ssh ubuntu@PUBLIC_IP -i PATH_TO_PRIVATE_KEY/PRIVATE_KEY_FILE`
+```
+ssh ubuntu@PUBLIC_IP -i PATH_TO_PRIVATE_KEY/PRIVATE_KEY_FILE
+```
 
 `PUBLIC_IP` ist dabei die zuvor notierte IP eures Servers, der Pfad und die File unter Linux ist standardmäßig `~/.ssh/id_rsa`
 
@@ -64,13 +66,18 @@ sudo ufw allow PORT comment 'CUSTOM'
 
 Hinweis: Für `PORT` setzt ihr den gewünschten Port sowie für `CUSTOM` einen entsprechenden Namen ein (z.B LND NODE, LNbits) und wiederholt den Command mit allen gewünschten Ports. Im Zweifel kann dies auch nachträglich geschehen.
 
-`sudo ufw enable`
+```
+sudo ufw enable
+```
 
 Es kommt eine Warnung, dass möglicherweise die SSH-Verbindung gekappt wird. Da wir OpenSSH freigegeben haben, sollte dies nicht passieren.
 
 Zu guter Letzt:
 
-`sudo apt install fail2ban` um den SSH-user zu schützen
+```
+sudo apt install fail2ban
+```
+um den SSH-user zu schützen
 
 ## OpenVPN installieren
 
@@ -78,14 +85,23 @@ Der Einfachheit halber bedienen wir uns eines OpenVPN Docker-Images ([Link](http
 
 Zum Installieren und Einrichten führt ihr folgende Schritte durch
 
-`export OVPN_DATA="ovpn-data"` Dieser Befehl setzt einen globalen Platzhalter für euer VPN. Um dies nach dem Reboot beizubehalten, fügt ihr den Befehl zusätzlich unter `sudo nano .bashrc` ein, beendet Nano mit STRG+X und bestätigt das Speichern mit Y (YES).
+```
+export OVPN_DATA="ovpn-data"
+```
+Dieser Befehl setzt einen globalen Platzhalter für euer VPN. Um dies nach dem Reboot beizubehalten, fügt ihr den Befehl zusätzlich unter `sudo nano .bashrc` ein, beendet Nano mit STRG+X und bestätigt das Speichern mit Y (YES).
 
-`sudo docker volume create --name $OVPN_DATA`
+```
+sudo docker volume create --name $OVPN_DATA
+```
 
-`sudo docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u udp://PUBLIC_IP` 
+```
+sudo docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u udp://PUBLIC_IP
+```
 hier wieder eure PUBLIC_IP einfügen
 
-`sudo docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn ovpn_initpki`
+```
+sudo docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn ovpn_initpki
+```
 dies lässt euch ein notwendiges Zertifikats-Passwort erstellen, welches im folgenden Verlauf nochmal abgefragt wird. Schreibt es euch gut auf.
 
 ```
@@ -97,29 +113,41 @@ Der OpenVPN Server läuft nun auf Port UDP 1194. Es müssen nun Benutzer Client-
 
 ## Erstellung und laden der OpenVPN Konfiguration
 
-`sudo docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa build-client-full NODENAME nopass`
+```
+sudo docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa build-client-full NODENAME nopass
+```
 wobei `NODENAME` ein gewünschter Name sein kann. Ich habe hier den Namen der Node gewählt.
 
-`sudo docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_getclient NODENAME > NODENAME.ovpn`
+```
+sudo docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_getclient NODENAME > NODENAME.ovpn
+```
 gibt die benötigte Konfigurationsdatei `NODENAME.ovpn` aus. 
 
 Diese Datei muss nun auf eure Node geladen werden. (Viele Wege führen nach Rom, man kann, sofern man den SSH private Key auf der Node hat, auch jetzt bereits auf die Node switchen und diese direkt darauf laden). Wir nutzen dafür einen Zwischenschritt.
 
 Öffnet ein neues Terminalfenster
 
-`scp 'ubuntu@PUBLIC_IP:/etc/openvpn/NODENAME.ovpn' ./ -i PATH_TO_PRIVATE_KEY/PRIVATE_KEY`
+```
+scp 'ubuntu@PUBLIC_IP:/etc/openvpn/NODENAME.ovpn' ./ -i PATH_TO_PRIVATE_KEY/PRIVATE_KEY
+```
 
 Dies kopiert die Datei zunächst auf euren Rechner
 
-`scp NODENAME.ovpn admin@NODEIP:/admin`
+```
+scp NODENAME.ovpn admin@NODEIP:/admin
+```
 kopiert die Datei auf eure Node.
 
 ## Einloggen und installieren von OpenVPN Client auf der Node
 
-`ssh admin@NODEIP`
+```
+ssh admin@NODEIP
+```
 bringt euch ins bekannte Blitzmenü. Wählt Exit um ins Terminalfenster zu gelangen
 
-`sudo chmod 600 NODENAME.ovpn`
+```
+sudo chmod 600 NODENAME.ovpn
+```
 vergibt der File, die hier im admin-Ordner liegen sollte, noch entsprechende Rechte.
 
 ```
@@ -163,8 +191,15 @@ Damit der Aufruf von `PUBLIC_IP:PORT auch an die Node weitergeleitet wird, müss
 
 Hierfür müssen wir direkt in die Docker Container Shell
 
-`sudo docker ps` zeigt euch eure Container, beachtet die `CONTAINER-ID`
-`docker exec -it <CONTAINER-ID> sh` gebt hier die entsprechende Container-ID ein
+```
+sudo docker ps
+```
+zeigt euch eure Container, beachtet die `CONTAINER-ID`
+
+```
+docker exec -it <CONTAINER-ID> sh
+```
+gebt hier die entsprechende Container-ID ein
 
 In der Shell angekommen führt ihr folgende Befehle aus
 
