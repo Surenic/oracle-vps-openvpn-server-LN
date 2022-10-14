@@ -27,11 +27,11 @@ Diese Anleitung soll als Hilfestellung dienen, eine bestehende Raspiblitz Full N
 1. Ist die Instanz hochgefahren, seht ihr unter Instanzzugriff euren Benutzernamen (ubuntu) sowie die Public IP. Notiert diese.
 2. Unter Instanzdetails klickt ihr den Link zu eurem Virtuellen Cloud-Netzwerk, im folgenden Fenster auf euer Subnetz und dann wiederum auf eure "Default Security List". Hier müssen nun einige Portfreigaben eingerichtet werden
 3. Unter "Impress-Regeln hinzufügen" fügt ihr folgendes ein:
-   - Quell-CIDR: 0.0.0.0/0
-   - IP-Protokoll: UDP
-   - Zielportbereich: 1194
+   - Quell-CIDR: `0.0.0.0/0`
+   - IP-Protokoll: `UDP`
+   - Zielportbereich: `1194`
    und klickt auf Impress-Regeln hinzufügen
-4. Wiederholt Schritt 3, wählt statt UDP TCP und tragt bei Zielportbereich mit Kommata getrennt alle Ports ein, die ihr später entsprechend der Dienste freigeben wollt. Der Wichtigste ist hier die 9735 und/oder die 9736
+4. Wiederholt Schritt 3, wählt statt `UDP` `TCP` und tragt bei Zielportbereich mit Kommata getrennt alle Ports ein, die ihr später entsprechend der Dienste freigeben wollt. Der Wichtigste ist hier die `9735` und/oder die `9736
 
 
 ## VPS Server-Zugriff und Einrichtung
