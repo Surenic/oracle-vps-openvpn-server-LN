@@ -92,9 +92,6 @@ Dieser Befehl setzt einen globalen Platzhalter für euer VPN. Um dies nach dem R
 
 ```
 sudo docker volume create --name $OVPN_DATA
-```
-
-```
 sudo docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u udp://PUBLIC_IP
 ```
 hier wieder eure PUBLIC_IP einfügen
@@ -187,7 +184,7 @@ Notiert euch die IP in der letzten Zeile, die zuerst angezeigt wird, im Beispiel
 
 ## Einrichten der Portweiterleitung
 
-Damit der Aufruf von `PUBLIC_IP:PORT auch an die Node weitergeleitet wird, müssen auf dem Server noch einige Konfigurationen vorgenommen werden. Hierfür brauchen wir die `VPN_IP`
+Damit der Aufruf von `PUBLIC_IP:PORT`auch an die Node weitergeleitet wird, müssen auf dem Server noch einige Konfigurationen vorgenommen werden. Hierfür brauchen wir die `VPN_IP`
 
 Hierfür müssen wir direkt in die Docker Container Shell
 
