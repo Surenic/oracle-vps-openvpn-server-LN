@@ -40,14 +40,14 @@ Nehmt euren SSH-Client zur Hand und verbindet euch mit eurem Server mittels des 
 
 `ssh ubuntu@PUBLIC_IP -i PATH_TO_PRIVATE_KEY/PRIVATE_KEY_FILE`
 
-`PUBLIC_IP` ist dabei die zuvor notierte IP eures Servers, der Pfad unter Linux ist standardmäßig `~/.ssh`
+`PUBLIC_IP` ist dabei die zuvor notierte IP eures Servers, der Pfad und die File unter Linux ist standardmäßig `~/.ssh/id_rsa`
 
 Nun führt ihr einige Befehle aus, um die Instanz auf den neuesten Stand zu bringen, Docker sowie die Uncomplicated Firewall (UFW) zu installieren.
 
 ```
 sudo apt update
 sudo apt upgrade -y
-sudo apt shutdown -r now
+sudo shutdown -r now
 ```
 
 Der letzte Befehl startet die Instanz neu. Das kann einige Zeit dauern. Holt euch einen Kaffee und loggt euch nach einer Weile via ssh wieder ein. Dann geht es weiter:
@@ -78,20 +78,28 @@ Der Einfachheit halber bedienen wir uns eines OpenVPN Docker-Images ([Link](http
 
 Zum Installieren und Einrichten führt ihr folgende Schritte durch
 
-`sudo export OVPN_DATA="ovpn-data"` Dieser Befehl setzt einen globalen Platzhalter für euer VPN. Um dies nach dem Reboot beizubehalten, fügt ihr den Befehl zusätzlich unter `sudo nano .bashrc` ein, beendet Nano mit STRG+X und bestätigt das Speichern mit Y (YES).
+`export OVPN_DATA="ovpn-data"` Dieser Befehl setzt einen globalen Platzhalter für euer VPN. Um dies nach dem Reboot beizubehalten, fügt ihr den Befehl zusätzlich unter `sudo nano .bashrc` ein, beendet Nano mit STRG+X und bestätigt das Speichern mit Y (YES).
 
 `sudo docker volume create --name $OVPN_DATA`
-`sudo docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u udp://PUBLIC_IP` hier wieder eure PUBLIC_IP einfügen
-`sudo docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn ovpn_initpki` dies lässt euch ein notwendiges Zertifikats-Passwort erstellen, welches im folgenden Verlauf nochmal abgefragt wird. Schreibt es euch gut auf.
-`sudo docker run -v $OVPN_DATA:/etc/openvpn -d -p 1194:1194/udp -p 9735:9735 -p 9736:9736 --cap-add=NET_ADMIN kylemanna/openvpn` hier kettet ihr alle gewünschten Ports mittels -p PORT:PORT aneinander. In diesem Kommando beispielhaft 9735 und 9736
+
+`sudo docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u udp://PUBLIC_IP` 
+hier wieder eure PUBLIC_IP einfügen
+
+`sudo docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn ovpn_initpki`
+dies lässt euch ein notwendiges Zertifikats-Passwort erstellen, welches im folgenden Verlauf nochmal abgefragt wird. Schreibt es euch gut auf.
+
+`sudo docker run -v $OVPN_DATA:/etc/openvpn -d -p 1194:1194/udp -p 9735:9735 -p 9736:9736 --cap-add=NET_ADMIN kylemanna/openvpn`
+hier kettet ihr alle gewünschten Ports mittels -p PORT:PORT aneinander. In diesem Kommando beispielhaft 9735 und 9736
 
 Der OpenVPN Server läuft nun auf Port UDP 1194. Es müssen nun Benutzer Client-Zugangsdaten erstellt werden
 
 ## Erstellung und laden der OpenVPN Konfiguration
 
-`sudo docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa build-client-full NODENAME nopass` wobe `NODENAME` ein gewünschter Name sein kann. Ich habe hier den Namen der Node gewählt.
+`sudo docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa build-client-full NODENAME nopass`
+wobei `NODENAME` ein gewünschter Name sein kann. Ich habe hier den Namen der Node gewählt.
 
-`sudo docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_getclient NODENAME > NODENAME.ovpn` gibt die benötigte Konfigurationsdatei `NODENAME.ovpn` aus. 
+`sudo docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_getclient NODENAME > NODENAME.ovpn`
+gibt die benötigte Konfigurationsdatei `NODENAME.ovpn` aus. 
 
 Diese Datei muss nun auf eure Node geladen werden. (Viele Wege führen nach Rom, man kann, sofern man den SSH private Key auf der Node hat, auch jetzt bereits auf die Node switchen und diese direkt darauf laden). Wir nutzen dafür einen Zwischenschritt.
 
@@ -101,19 +109,22 @@ Diese Datei muss nun auf eure Node geladen werden. (Viele Wege führen nach Rom,
 
 Dies kopiert die Datei zunächst auf euren Rechner
 
-`scp NODENAME.ovpn admin@NODEIP:/admin` kopiert die Datei auf eure Node.
+`scp NODENAME.ovpn admin@NODEIP:/admin`
+kopiert die Datei auf eure Node.
 
 ## Einloggen und installieren von OpenVPN Client auf der Node
 
-`ssh admin@NODEIP` bringt euch ins bekannte Blitzmenü. Wählt Exit um ins Terminalfenster zu gelangen
+`ssh admin@NODEIP`
+bringt euch ins bekannte Blitzmenü. Wählt Exit um ins Terminalfenster zu gelangen
 
-`sudo chmod 600 NODENAME.ovpn` vergibt der File, die hier im admin-Ordner liegen sollte, noch entsprechende Rechte.
+`sudo chmod 600 NODENAME.ovpn`
+vergibt der File, die hier im admin-Ordner liegen sollte, noch entsprechende Rechte.
 
 ```
 sudo apt-get install openvpn
-$ sudo mv /home/admin/NODENAME.ovpn /etc/openvpn/CERT.conf
-$ sudo systemctl enable openvpn@CERT
-$ sudo systemctl start openvpn@CERT
+sudo mv /home/admin/NODENAME.ovpn /etc/openvpn/CERT.conf
+sudo systemctl enable openvpn@CERT
+sudo systemctl start openvpn@CERT
 ```
 
 Diese Befehle verbinden eure Node nun mit eurem VPS VPN Server, es sollte eine entsprechende Ausgabe kommen, die so aussieht:
@@ -146,7 +157,7 @@ Notiert euch die IP in der letzten Zeile, die zuerst angezeigt wird, im Beispiel
 
 ## Einrichten der Portweiterleitung
 
-Damit der Aufruf von PUBLIC_IP:PORT auch an die Node weitergeleitet wird, müssen auf dem Server noch einige Konfigurationen vorgenommen werden. Hierfür brauchen wir die `VPN_IP`
+Damit der Aufruf von `PUBLIC_IP:PORT auch an die Node weitergeleitet wird, müssen auf dem Server noch einige Konfigurationen vorgenommen werden. Hierfür brauchen wir die `VPN_IP`
 
 Hierfür müssen wir direkt in die Docker Container Shell
 
@@ -161,7 +172,7 @@ sudo iptables -A PREROUTING -t nat -i eth0 -p tcp -m tcp --dport 9736 -j DNAT --
 sudo iptables -t nat -A POSTROUTING -d 192.168.255.0/24 -o tun0 -j MASQUERADE
 ```
 
-Beachtet hierbei, dass ihr entsprechend der gewünschten Ports die Befehle entsprechend wiederholt. Die POSTROUTING IP ist eure VPN_IP, jedoch mit einer 0 an vierter Stelle
+Beachtet hierbei, dass ihr entsprechend der gewünschten Ports die Befehle entsprechend wiederholt. Die `POSTROUTING IP` ist eure `VPN_IP`, jedoch mit einer 0 an vierter Stelle
 
 Um diese Port Forwards beim Reboot des Servers beizubehalten, muss das Ganze in die /etc/openvpn/ovpn_env.sh eingetragen werden. Wir sind nach wie vor in der Docker Shell
 
