@@ -1,4 +1,4 @@
-# Hybrid mode for LND/CLN (Raspiblitz) über ein Oracle Cloud Free Tier VPN
+# Hybrid mode für LND/CLN (Raspiblitz) über ein Oracle Cloud Free Tier VPN
 Diese Anleitung soll als Hilfestellung dienen, eine bestehende Raspiblitz Full Node, dessen Lightning-Implementierung und gewünschte Dienste über die VPN-Clearnet-Adresse freizugeben. Die Anleitung lehnt sich, gerade was die Einrichtung des OpenVPN-Servers angeht, stark am [Tutorial](https://github.com/TrezorHannes/Dual-LND-Hybrid-VPS#vps-retrieve-the-openvpn-config--certificate) von [TrezorHannes](https://github.com/TrezorHannes) an.
 
 ### Voraussetzungen
