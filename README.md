@@ -88,7 +88,11 @@ Zum Installieren und Einrichten führt ihr folgende Schritte durch
 ```
 export OVPN_DATA="ovpn-data"
 ```
-Dieser Befehl setzt einen globalen Platzhalter für euer VPN. Um dies nach dem Reboot beizubehalten, fügt ihr den Befehl zusätzlich unter `sudo nano .bashrc` ein, beendet Nano mit STRG+X und bestätigt das Speichern mit Y (YES).
+Dieser Befehl setzt einen globalen Platzhalter für euer VPN. Um dies nach dem Reboot beizubehalten, fügt ihr den Befehl zusätzlich unter
+```
+sudo nano .bashrc
+```
+ein, beendet Nano mit STRG+X und bestätigt das Speichern mit Y (YES).
 
 ```
 sudo docker volume create --name $OVPN_DATA
