@@ -88,7 +88,9 @@ hier wieder eure PUBLIC_IP einfügen
 `sudo docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn ovpn_initpki`
 dies lässt euch ein notwendiges Zertifikats-Passwort erstellen, welches im folgenden Verlauf nochmal abgefragt wird. Schreibt es euch gut auf.
 
-```sudo docker run -v $OVPN_DATA:/etc/openvpn -d -p 1194:1194/udp -p 9735:9735 -p 9736:9736 --cap-add=NET_ADMIN kylemanna/openvpn`
+```
+sudo docker run -v $OVPN_DATA:/etc/openvpn -d -p 1194:1194/udp -p 9735:9735 -p 9736:9736 --cap-add=NET_ADMIN kylemanna/openvpn
+```
 hier kettet ihr alle gewünschten Ports mittels -p PORT:PORT aneinander. In diesem Kommando beispielhaft 9735 und 9736
 
 Der OpenVPN Server läuft nun auf Port UDP 1194. Es müssen nun Benutzer Client-Zugangsdaten erstellt werden
