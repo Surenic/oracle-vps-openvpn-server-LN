@@ -2,7 +2,7 @@
 Diese Anleitung soll als Hilfestellung dienen, eine bestehende Raspiblitz Full Node, dessen Lightning-Implementierung und gewünschte Dienste über die VPN-Clearnet-Adresse freizugeben. Die Anleitung lehnt sich, gerade was die Einrichtung des OpenVPN-Servers angeht, stark am [Tutorial](https://github.com/TrezorHannes/Dual-LND-Hybrid-VPS#vps-retrieve-the-openvpn-config--certificate) von [TrezorHannes](https://github.com/TrezorHannes) an.
 
 ### Voraussetzungen
-- Ein Oracle Cloud Free Tier Account ([Link](https://www.oracle.com/cloud/free/). Dieser erfordert Klarnamen-Einträge, die am Ende der Account-Erstellung mit der Eingabe von Kreditkarten-Daten und einer Ab- und Rückbuchung von 1$ bestätigt werden. Im Verlauf des Tutorials werden wir lediglich Produkte "buchen", die als "immer kostenlos" deklariert werden. Der Free Tier Account hat gewisse Einschränkungen in Sachen Anzahl aktiver Instanzen und Traffic, die hierfür aber mehr als ausreichend sein sollten.
+- Ein Oracle Cloud Free Tier Account ([Link](https://www.oracle.com/cloud/free/)). Dieser erfordert Klarnamen-Einträge, die am Ende der Account-Erstellung mit der Eingabe von Kreditkarten-Daten und einer Ab- und Rückbuchung von 1$ bestätigt werden. Im Verlauf des Tutorials werden wir lediglich Produkte "buchen", die als "immer kostenlos" deklariert werden. Der Free Tier Account hat gewisse Einschränkungen in Sachen Anzahl aktiver Instanzen und Traffic, die hierfür aber mehr als ausreichend sein sollten.
 - eine laufende Lightning Node (in diesem Tutorial gehe ich speziell auf Raspiblitz ein. Es lässt sich aber auch auf andere Implementierungen übertragen)
 - Macht euch Gedanken darüber, welcher Services ihr über das Clearnet erreichen wollt und notiert euch die benötigten Ports (z.B. LND 9735, CLN 9736, LNbits 5001, Electrum Server 50002 uws.)
 
@@ -207,5 +207,6 @@ Das war's. Eure Nodes und Dienste sollten nun unter der entsprechenden IP erreic
 Wenn euch das Tutorial gefallen hat und alles funktioniert, wie es soll, freue ich mich, wenn ihr meinen LNurlp-Link mal ausprobiert ;)
 
 [LNurlp](qr.png)
+[<img src=https://raw.githubusercontent.com/Surenic/Hybrid-mode-for-LND-CLN-Raspiblitz-connected-to-an-Oracle-Cloud-Free-Tier-VPN/main/qr.png width="200" height="200">](https://coresln.duckdns.org:5001/lnurlp/1)
 
 Ansonsten freue ich mich auf Verbesserungen, Anregungen und ähnliches
