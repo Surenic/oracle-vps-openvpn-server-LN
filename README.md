@@ -121,7 +121,7 @@ Diese Befehle verbinden eure Node nun mit eurem VPS VPN Server, es sollte eine e
 ```
 * openvpn@CERT.service - OpenVPN connection to CERT
      Loaded: loaded (/lib/systemd/system/openvpn@.service; enabled; vendor preset: enabled)
-     Active: active (running) since Wed 2022-04-06 13:11:13 CEST; 4s ago
+     Active: active (running) since Sat 2009-01-03 19:15:00 CEST; 4s ago
        Docs: man:openvpn(8)
              https://community.openvpn.net/openvpn/wiki/Openvpn24ManPage
              https://community.openvpn.net/openvpn/wiki/HOWTO
@@ -133,13 +133,13 @@ Diese Befehle verbinden eure Node nun mit eurem VPS VPN Server, es sollte eine e
      CGroup: /system.slice/system-openvpn.slice/openvpn@CERT.service
              `-1514818 /usr/sbin/openvpn --daemon ovpn-CERT --status /run/openvpn/CERT.status 10 --cd /etc/openvpn --config /etc/openvpn/CERT.conf --writepid /run/openvpn/CERT.pid
 
-Apr 06 13:11:13 debian-nuc ovpn-CERT[1514818]: WARNING: 'link-mtu' is used inconsistently, local='link-mtu 1541', remote='link-mtu 1542'
-Apr 06 13:11:13 debian-nuc ovpn-CERT[1514818]: WARNING: 'comp-lzo' is present in remote config but missing in local config, remote='comp-lzo'
-Apr 06 13:11:13 debian-nuc ovpn-CERT[1514818]: [207.154.241.101] Peer Connection Initiated with [AF_INET]207.154.241.101:1194
-Apr 06 13:11:14 debian-nuc ovpn-CERT[1514818]: TUN/TAP device tun0 opened
-Apr 06 13:11:14 debian-nuc ovpn-CERT[1514818]: net_iface_mtu_set: mtu 1500 for tun0
-Apr 06 13:11:14 debian-nuc ovpn-CERT[1514818]: net_iface_up: set tun0 up
-Apr 06 13:11:14 debian-nuc ovpn-CERT[1514818]: net_addr_ptp_v4_add: 192.168.255.6 peer 192.168.255.5 dev tun0
+Jan 03 19:15:00 debian-nuc ovpn-CERT[1514818]: WARNING: 'link-mtu' is used inconsistently, local='link-mtu 1541', remote='link-mtu 1542'
+Jan 03 19:15:00 debian-nuc ovpn-CERT[1514818]: WARNING: 'comp-lzo' is present in remote config but missing in local config, remote='comp-lzo'
+Jan 03 19:15:00 debian-nuc ovpn-CERT[1514818]: [PUBLIC_IP] Peer Connection Initiated with [AF_INET]PUBLIC_IP:1194
+Jan 03 19:15:01 debian-nuc ovpn-CERT[1514818]: TUN/TAP device tun0 opened
+Jan 03 19:15:01 debian-nuc ovpn-CERT[1514818]: net_iface_mtu_set: mtu 1500 for tun0
+Jan 03 19:15:01 debian-nuc ovpn-CERT[1514818]: net_iface_up: set tun0 up
+Jan 03 19:15:01 debian-nuc ovpn-CERT[1514818]: net_addr_ptp_v4_add: 192.168.255.6 peer 192.168.255.5 dev tun0
 ```
 
 Notiert euch die IP in der letzten Zeile, die zuerst angezeigt wird, im Beispiel hier die `192.168.255.6`. Wir nennen sie ab hier `VPN_IP`.
@@ -202,3 +202,10 @@ In beiden Fällen solltet ihr checken, ob gewisse Einträge nicht bereits vorhan
 Nun müsst ihr beim Speichern der Datei den entsprechenden Service neu starten.
 
 Das war's. Eure Nodes und Dienste sollten nun unter der entsprechenden IP erreichbar sein
+
+
+Wenn euch das Tutorial gefallen hat und alles funktioniert, wie es soll, freue ich mich, wenn ihr meinen LNurlp-Link mal ausprobiert ;)
+
+[LNurlp](qr.png)
+
+Ansonsten freue ich mich auf Verbesserungen, Anregungen und ähnliches
