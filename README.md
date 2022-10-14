@@ -31,7 +31,7 @@ Diese Anleitung soll als Hilfestellung dienen, eine bestehende Raspiblitz Full N
    - IP-Protokoll: `UDP`
    - Zielportbereich: `1194`
    und klickt auf Impress-Regeln hinzufügen
-4. Wiederholt Schritt 3, wählt statt `UDP` `TCP` und tragt bei Zielportbereich mit Kommata getrennt alle Ports ein, die ihr später entsprechend der Dienste freigeben wollt. Der Wichtigste ist hier die `9735` und/oder die `9736
+4. Wiederholt Schritt 3, wählt statt `UDP` `TCP` und tragt bei Zielportbereich mit Kommata getrennt alle Ports ein, die ihr später entsprechend der Dienste freigeben wollt. Der Wichtigste ist hier die `9735` und/oder die `9736`
 
 
 ## VPS Server-Zugriff und Einrichtung
