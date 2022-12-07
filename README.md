@@ -1,4 +1,10 @@
 # Hybrid mode für LND/CLN (Raspiblitz) über ein Oracle Cloud Free Tier VPN
+
+### EDIT 7.12.2022
+Eine aktualisierte Anleitung mit Wireguard als Grundlage findet sich [hier](https://github.com/Surenic/oracle-vps-wireguard-server-LN). Falls ihr aus irgendeinem Grund lieber auf docker/openvpn setzt, go ahead ;)
+
+<br>
+
 Diese Anleitung soll als Hilfestellung dienen, eine bestehende Raspiblitz Full Node, dessen Lightning-Implementierung und gewünschte Dienste über die VPN-Clearnet-Adresse freizugeben. Die Anleitung lehnt sich, gerade was die Einrichtung des OpenVPN-Servers angeht, stark am [Tutorial](https://github.com/TrezorHannes/Dual-LND-Hybrid-VPS#vps-retrieve-the-openvpn-config--certificate) von [TrezorHannes](https://github.com/TrezorHannes) an.
 
 ### Voraussetzungen
