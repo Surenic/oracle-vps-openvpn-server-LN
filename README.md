@@ -255,7 +255,7 @@ Das war's. Eure Nodes und Dienste sollten nun unter der entsprechenden IP erreic
 
 Wenn euch das Tutorial gefallen hat und alles funktioniert, wie es soll, freue ich mich, wenn ihr meinen LNurlp-Link mal ausprobiert ;)
 
-[<img src=https://raw.githubusercontent.com/Surenic/Hybrid-mode-for-LND-CLN-Raspiblitz-connected-to-an-Oracle-Cloud-Free-Tier-VPN/main/qr.png width="200" height="200">](https://coresln.duckdns.org:5001/lnurlp/1)
+[<img src=https://raw.githubusercontent.com/Surenic/oracle-vps-wireguard-server-LN/main/QR.png width="200" height="200">](https://lnbits.surenic.net/lnurlp/2)
 
 Folgt mir auf Twitter!
 
